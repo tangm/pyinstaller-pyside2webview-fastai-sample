@@ -1,0 +1,6 @@
+https://github.com/pyinstaller/pyinstaller/archive/develop.tar.gz#egg=PyInstaller
+PySide2==5.13.0
+fastai==1.0.55
+# For different OSes
+https://download.pytorch.org/whl/cpu/torch-1.1.0-cp37-cp37m-win_amd64.whl#egg=torch; sys_platform == 'win32'
+https://download.pytorch.org/whl/cpu/torchvision-0.3.0-cp37-cp37m-win_amd64.whl#egg=torchvision; sys_platform == 'win32'

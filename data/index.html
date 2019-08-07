@@ -1,0 +1,78 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+  <title>Classify Bear Images 🐻</title>
+</head>
+<body>
+  <h2>
+    Use images of <strong>teddy</strong> bears, <strong>black</strong> bears, <strong>grizzly</strong> bears, or
+    all three!
+  </h2>
+
+  <div>
+    <input type="file" id="fileInput" name="bears" accept="image/*">
+  </div>
+  <br>
+  <div>
+    <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" id="previewImage" style="max-height: 50vh">
+    <br>
+  </div>
+  <h3 id="predictionResult"></h3>
+  <button id="classify">
+    Classify
+  </button>
+  <script>
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.addEventListener('DOMContentLoaded', function () {
+      
+      const fileInput = document.getElementById('fileInput');
+      const previewImage = document.getElementById('previewImage'); 
+      const predictionResult = document.getElementById('predictionResult');
+      const classify = document.getElementById('classify');
+
+      // Obtain the exposed python object interface
+      const getBackend = new Promise((resolve, reject) => {
+        new QWebChannel(qt.webChannelTransport, 
+          (channel) => resolve(channel.objects.backend));
+      })
+
+      // Show a preview when an image file is selected
+      fileInput.addEventListener('change', function(){
+        predictionResult.textContent = '';
+        const f = this.files[0];
+        if (!f) {
+          return
+        }
+        previewImage.src = window.URL.createObjectURL(f);
+        previewImage.onload = function() {
+          window.URL.revokeObjectURL(this.src);
+        }      
+      });
+
+      // Call the interface when asked to do a prediction
+      classify.addEventListener('click', function(){
+        const f = fileInput.files[0];
+        if (!f) {
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onloadend = function(evt) {
+          if (evt.target.readyState == FileReader.DONE) {
+            getBackend.then((backend) => {
+              backend.classify(evt.target.result, (prediction) => {
+                predictionResult.textContent = `It's a ${prediction}!`;
+              });             
+            })
+          }
+        };
+        reader.readAsBinaryString(f);
+      });
+    });
+  </script>
+</body>
+</html>
