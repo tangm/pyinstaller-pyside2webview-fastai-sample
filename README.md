@@ -1,3 +1,3 @@
-### Sample project for PyInstaller + PySide2 + QtWebEngine
+### Sample project for fast.ai + PyInstaller + PySide2 + QtWebEngine
 
-See [this post](https://justcode.nimbco.com/PyInstaller-with-Qt5-WebEngineView-using-PySide2/) for details
+See [this post](https://justcode.nimbco.com/Classifying-Bears-as-a-desktop-app/) for details
