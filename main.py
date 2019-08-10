@@ -6,6 +6,13 @@ from PySide2.QtWidgets import QApplication
 from PySide2.QtWebEngineWidgets import QWebEngineView, QWebEnginePage
 from PySide2.QtWebChannel import QWebChannel
 from PySide2.QtCore import QUrl, Slot, QObject, QUrl
+def script_method(fn, _rcb=None):
+    return fn
+def script(obj, optimize=True, _frames_up=0, _rcb=None):
+    return obj    
+import torch.jit
+torch.jit.script_method = script_method 
+torch.jit.script = script
 from fastai.vision import load_learner, open_image
 
 # Some hackery required for pyInstaller
