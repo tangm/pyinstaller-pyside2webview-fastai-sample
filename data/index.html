@@ -5,9 +5,14 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta content="IE=edge" http-equiv="X-UA-Compatible">
   <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+  <script src="assets/material.min.js"></script>
+  <link href="assets/material.min.css" rel="stylesheet" type="text/css"/>
   <title>Classify Bear Images 🐻</title>
+  <style>
+    #fileInput { display: none }
+  </style>
 </head>
-<body>
+<body style="padding: 20px; text-align: center; max-width: 100%; width: 990px; overflow: hidden;">
   <h2>
     Use images of <strong>teddy</strong> bears, <strong>black</strong> bears, <strong>grizzly</strong> bears, or
     all three!
@@ -15,6 +20,9 @@
 
   <div>
     <input type="file" id="fileInput" name="bears" accept="image/*">
+    <label for="fileInput" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" >
+      Choose File
+	</label>
   </div>
   <br>
   <div>
@@ -22,7 +30,7 @@
     <br>
   </div>
   <h3 id="predictionResult"></h3>
-  <button id="classify">
+  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="classify">
     Classify
   </button>
   <script>
