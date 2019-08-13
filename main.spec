@@ -2,7 +2,7 @@
 
 # https://github.com/pyinstaller/pyinstaller/issues/4064#issuecomment-471063543
 import distutils
-if distutils.distutils_path.endswith('__init__.py'):
+if (getattr(distutils, 'distutils_path', None) != None) and distutils.distutils_path.endswith('__init__.py'):
     distutils.distutils_path = os.path.dirname(distutils.distutils_path)
 
 block_cipher = None
